@@ -1,0 +1,82 @@
+.title_desc {
+  font-size: x-small;
+  font-weight: 400;
+  overflow: hidden;
+}
+
+.title_icon {
+  margin: 5px;
+  font-size: 20px;
+}
+
+.title-icon-stop {
+  color: #52c41a !important;
+  font-size: 22px;
+}
+
+.title-icon-disabled {
+  color: #999 !important;
+  font-size: 22px;
+}
+
+.title-icon-ok {
+  color: red !important;
+  font-size: 16px;
+}
+
+.title-icon-add {
+  color: #eb2f96 !important;
+  font-size: 22px;
+}
+
+.content_icon {
+  margin: 5px;
+  font-size: 15px;
+  color: #000;
+}
+
+.card_div {
+  float: left;
+  margin: 20px;
+}
+
+.ant-card-body {
+  height: 200px;
+}
+
+.ant-card-actions {
+  background-color: #ccc;
+}
+
+.add_card {
+  font-size: 100px;
+  color: darkslategrey;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.content_switch {
+  margin-bottom: 5px;
+}
+
+.model_lable {
+  float: left;
+  width: 100px;
+  text-align: center;
+  margin: 5px;
+}
+
+.model_title_lable {
+  line-height: 20px;
+  height: 20px;
+}
+
+.model_div {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.ant-card-meta-description {
+  overflow: hidden;
+  height: 25px;
+}

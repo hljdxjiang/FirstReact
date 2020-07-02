@@ -1,0 +1,52 @@
+{
+  "menudata": [
+    {
+      "key": "a",
+      "title": "ddddddd",
+      "path": "/test"
+    },
+    {
+      "key": "b",
+      "title": "bbb",
+      "sub": [
+        {
+          "key": "d",
+          "title": "ddd",
+          "path": "/test"
+        },
+        {
+          "key": "a",
+          "title": "ddddddd",
+          "path": "/test"
+        },
+        {
+          "key": "b",
+          "title": "bbb",
+          "path": "/test"
+        }
+      ]
+    },
+    {
+      "key": "c",
+      "title": "ccc"
+    },
+    {
+      "key": "d",
+      "title": "fff",
+      "sub": [
+        {
+          "key": "d",
+          "title": "ddd"
+        },
+        {
+          "key": "a",
+          "title": "ddddddd"
+        },
+        {
+          "key": "b",
+          "title": "bbb"
+        }
+      ]
+    }
+  ]
+}

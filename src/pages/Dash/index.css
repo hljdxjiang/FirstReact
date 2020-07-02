@@ -1,0 +1,32 @@
+.main_content_div {
+    min-width: inherit;
+    overflow: scroll;
+}
+
+.sc {
+    float: left;
+    font-size: 25px;
+    margin-right: 3vw;
+}
+
+.ant-card-body {
+    padding: 17px;
+}
+
+.card-title {
+    font-size: 25px;
+}
+
+.card-value {
+    text-align: right;
+    color: red;
+}
+
+.clear {
+    font-size: 12px;
+}
+
+.col_card {
+    height: 150px;
+    margin: 0 5px 0 5px;
+}

@@ -1,0 +1,60 @@
+.header_sty {
+  padding: 0px;
+  height: 60px;
+}
+
+.header_menu {
+  line-height: 60px;
+  float: right;
+  height: 60px;
+  margin-top: 1px;
+  top: 0px;
+}
+
+.trigger {
+  float: left;
+  line-height: 60px;
+  font-size: 18px;
+  padding: 0 16px;
+  width: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.avatar {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  line-height: 1;
+  border-radius: 500px;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.avatar i {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  line-height: 1;
+  border-radius: 500px;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.avatar img {
+  width: 40px;
+  right: 5px;
+  top: 5px;
+  border-radius: 100px;
+}
+
+.avatar i.bottom {
+  left: auto;
+  top: auto;
+  bottom: 0;
+  right: 0;
+}
+
+.ant-menu-horizontal>.ant-menu-submenu-selected {
+  border-bottom: none;
+}

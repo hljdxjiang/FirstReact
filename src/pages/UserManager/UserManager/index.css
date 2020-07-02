@@ -1,0 +1,53 @@
+.user_side {
+  flex: 0 0 200px;
+  margin: 5px;
+  max-width: 25vw !important;
+  min-width: 25vw !important;
+  width: 25vw !important;
+  background: #fff !important;
+  overflow: scroll;
+}
+
+.user_list {
+  display: contents;
+  min-height: inherit;
+  width: 100%;
+  background: #fff !important;
+  margin: 5px;
+  overflow: scroll;
+}
+
+.user_list>.ant-table-wrapper {
+  width: 100%;
+  background: #fff;
+}
+
+.user_group_title {
+  background: rgba(87, 126, 162, 0.2);
+  height: 30px;
+  min-height: 30px;
+}
+
+.user_group_font {
+  float: left;
+  margin-left: 10px;
+  font-size: 18px;
+  height: 30px;
+  min-height: 30px;
+}
+
+.user_group_title_link {
+  margin-right: 5px;
+  font-size: 15px;
+}
+
+.user_content {
+  width: 100%;
+  background: #ffff;
+  margin-top: 5px;
+}
+
+.user_info_radio_group {
+  border: 1px solid #b9b2b2;
+  margin: 20px 0 20px 0;
+}

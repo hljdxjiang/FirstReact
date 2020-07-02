@@ -1,0 +1,64 @@
+.role_side {
+  flex: 0 0 200px;
+  margin: 5px;
+  max-width: 25vw !important;
+  min-width: 25vw !important;
+  width: 25vw !important;
+  background: #fff !important;
+  overflow: scroll;
+}
+
+.role_list {
+  display: contents;
+  min-height: inherit;
+  width: 100%;
+  background: #fff !important;
+  overflow: scroll;
+}
+
+.role_list > .ant-table-wrapper {
+  width: 100%;
+  background: #fff;
+}
+
+.role_group_title {
+  background: rgba(87, 126, 162, 0.2);
+  height: 25px;
+  min-height: 25px;
+}
+
+.role_group_font {
+  float: left;
+  margin-left: 10px;
+  font-size: 15px;
+  height: 25px;
+  min-height: 25px;
+}
+
+.role_group_title_link {
+  margin-right: 5px;
+  font-size: 13px;
+}
+
+.role_main_content {
+  width: 75vw;
+  background: #fff;
+  margin: 5px;
+}
+
+.role_menus_div {
+  float: left;
+  position: inherit;
+  width: 50%;
+  overflow: scroll;
+  border: 5px solid #d9d9d9;
+  overflow: scroll;
+}
+
+.role_menu {
+  margin: 5px;
+}
+
+.ant-tree-iconEle {
+  display: none !important;
+}
