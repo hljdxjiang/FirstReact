@@ -1,4 +1,5 @@
 import axios from "./ajax";
+import { store } from "../store";
 export async function RefreshToken() {
   let rs = await getnewtoken();
   if (rs === undefined || rs === null) {
@@ -12,7 +13,7 @@ export async function RefreshToken() {
   setCookieAndSession("_userid", rs.userid);
   return true;
 }
-function getnewtoken() {
+async function getnewtoken() {
   return axios({ url: "/api/auth/refreshtokeb", method: "get" })
     .then(async (res) => {
       if (res && res.status && res.status === 200) {
@@ -27,7 +28,13 @@ function getnewtoken() {
     .catch((err) => {});
 }
 
-export function isLogin() {
+export async function isLogin() {
+  let res = await getnewtoken();
+  if (res === undefined || res === null) {
+    clearCookieAndSession();
+    window.location.href = "/login";
+    return false;
+  }
   return !!getToken();
 }
 export function getUserID() {

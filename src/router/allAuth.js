@@ -13,8 +13,12 @@ export default {
           title: "查看手机号",
         },
         {
-          key: "order_showothers",
-          title: "查询他人订单",
+          key: "order_query_groups",
+          title: "查询本组订单",
+        },
+        {
+          key: "order_query_all",
+          title: "查询全部订单",
         },
       ],
     },
@@ -22,10 +26,6 @@ export default {
       key: "subject_manager",
       title: "科目管理",
       children: [
-        {
-          key: "delete_subject",
-          title: "删除科目",
-        },
         {
           key: "create_subject",
           title: "创建科目",
@@ -37,19 +37,29 @@ export default {
       ],
     },
     {
+      key: "course_manager",
+      title: "课程管理",
+      children: [
+        {
+          key: "add_course",
+          title: "创建科目",
+        },
+        {
+          key: "edit_course",
+          title: "修改科目",
+        },
+      ],
+    },
+    {
       key: "user_manager",
       title: "用户管理",
       children: [
         {
-          key: "delete_user",
-          title: "删除用户",
-        },
-        {
-          key: "create_user",
+          key: "add_user",
           title: "创建用户",
         },
         {
-          key: "disabled_user",
+          key: "edit_user",
           title: "修改用户",
         },
         {
@@ -62,7 +72,7 @@ export default {
         },
         {
           key: "edit_group",
-          title: "修改分组信息",
+          title: "修改分组",
         },
       ],
     },
@@ -72,15 +82,15 @@ export default {
       children: [
         {
           key: "delete_auth",
-          title: "删除科目",
+          title: "删除角色",
         },
         {
           key: "create_auth",
-          title: "创建科目",
+          title: "创建角色",
         },
         {
           key: "edit_auth",
-          title: "修改科目",
+          title: "修改角色",
         },
       ],
     },

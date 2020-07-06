@@ -24,14 +24,9 @@ class EditBase extends React.Component {
         if (response && response.status) {
           if (response.status === 200) {
             if (response.data.code === 0) {
-              var code = response.data.code;
-              if (code === 0) {
-                return response.data.result;
-              } else {
-                message.error(response.data.message);
-              }
+              return response.data.result;
             } else {
-              message.warning("获取数据失败，请于管理员联系", 3);
+              message.error(response.data.message);
             }
           } else {
             message.warning("数据初始化异常，请于管理员联系", 3);
@@ -41,7 +36,6 @@ class EditBase extends React.Component {
         }
       })
       .catch((err) => {
-        console.log("err  ", err);
         message.warning(err);
       });
   };
@@ -59,14 +53,25 @@ class EditBase extends React.Component {
         var obj = values;
         obj.subjectid = values.sub2;
         obj.courseid = this.state.courseid;
-        console.log(obj);
         axios({
           url: "/api/course/save",
           method: "post",
           data: JSON.stringify(obj),
         })
           .then((response) => {
-            console.log(response);
+            if (response && response.status) {
+              if (response.status === 200) {
+                if (response.data.code === 0) {
+                  message.info("保存成功");
+                } else {
+                  message.error(response.data.message);
+                }
+              } else {
+                message.warning("数据初始化异常，请于管理员联系", 3);
+              }
+            } else {
+              message.warning("服务器连接异常，请与管理员联系", 3);
+            }
           })
           .catch((err) => {});
       })
@@ -97,7 +102,6 @@ class EditBase extends React.Component {
       var sub2 = Array.from(this.state.subject).find(
         (dt) => dt.subjectid === value
       );
-      console.log(sub2);
       if (sub2) {
         if (sub2.sub) {
           this.setState({ sub: sub2.sub });
@@ -130,7 +134,6 @@ class EditBase extends React.Component {
             (sitem) => sitem.subjectid === course.subjectid
           )
       );
-      console.log(course);
       this.setState({
         subject: rs,
         sub: subject.sub,
@@ -145,7 +148,6 @@ class EditBase extends React.Component {
     this.init();
   }
   render() {
-    console.log(this.state);
     return (
       <div>
         <Form ref={this.formRef}>

@@ -3,6 +3,7 @@ import { Tree, Layout, Table, Modal, Input, message, Popconfirm } from "antd";
 import DocumentTitle from "react-document-title";
 import { connect } from "react-redux";
 import axios from "../../../commons/ajax";
+import { hasPermission } from "../../../commons";
 import { transGender } from "../../../commons/transdata";
 
 const { DirectoryTree } = Tree;
@@ -54,13 +55,11 @@ class usermanager extends React.Component {
     return s;
   };
   getAllGroup = () => {
-    console.log("begin getAllgroup ", this.state);
     axios({
       url: "/api/group/getgroups",
       method: "get",
     })
       .then((response) => {
-        console.log("response", response);
         if (response && response.status) {
           if (response.status === 200) {
             if (response.data.code === 0) {
@@ -108,7 +107,6 @@ class usermanager extends React.Component {
     });
   };
   onSave = () => {
-    console.log(this.state);
     var obj = {};
     obj.key = this.state.groupid;
     obj.title = this.state.groupname;
@@ -119,7 +117,6 @@ class usermanager extends React.Component {
       data: JSON.stringify(obj),
     })
       .then((response) => {
-        console.log("response", response);
         if (response && response.status) {
           if (response.status === 200) {
             if (response.data.code === 0) {
@@ -140,7 +137,6 @@ class usermanager extends React.Component {
         console.log("err  ", err);
       });
   };
-  onNewGroup = () => {};
   onEditOrViewUser = (t) => {
     var obj = {
       user: t,
@@ -157,7 +153,6 @@ class usermanager extends React.Component {
       method: "get",
     })
       .then((response) => {
-        console.log("response", response);
         if (response && response.status) {
           if (response.status === 200) {
             if (response.data.code === 0) {
@@ -198,7 +193,6 @@ class usermanager extends React.Component {
         method: "get",
       })
         .then((response) => {
-          console.log("response", response);
           if (response && response.status) {
             if (response.status === 200) {
               if (response.data.code === 0) {
@@ -262,7 +256,6 @@ class usermanager extends React.Component {
       data: JSON.stringify(obj),
     })
       .then((response) => {
-        console.log("response", response);
         if (response && response.status) {
           if (response.status === 200) {
             if (response.data.code === 0) {
@@ -285,9 +278,7 @@ class usermanager extends React.Component {
       });
   };
 
-  onExpand = () => {
-    console.log("Trigger Expand");
-  };
+  onExpand = () => {};
   render() {
     const style = {
       height: document.documentElement.clientHeight - 120 + "px",
@@ -321,35 +312,38 @@ class usermanager extends React.Component {
       },
       {
         title: "角色名称",
-        dataIndex: "skillid",
+        dataIndex: "roleid",
       },
       {
         title: "操作",
         dataIndex: "",
         key: "x",
-        render: (text, record) => (
-          <div>
-            <a onClick={this.onEditOrViewUser.bind(this, record)}>编辑</a>{" "}
-            <a
-              onClick={this.onDisabledUser.bind(
-                this,
-                record.userid,
-                record.lockflag
-              )}
-            >
-              {record.status === "0" ? "禁用" : "启用"}
-            </a>{" "}
-            <Popconfirm
-              placement="left"
-              title={"确认是否删除用户：用户删除后将永不可恢复！"}
-              onConfirm={this.onDeleteUser.bind(this, record.userid)}
-              okText="Yes"
-              cancelText="No"
-            >
-              <a>删除</a>
-            </Popconfirm>
-          </div>
-        ),
+        render: (text, record) =>
+          hasPermission("edit_user") ? (
+            <div>
+              <a onClick={this.onEditOrViewUser.bind(this, record)}>编辑</a>{" "}
+              <a
+                onClick={this.onDisabledUser.bind(
+                  this,
+                  record.userid,
+                  record.lockflag
+                )}
+              >
+                {record.status === "0" ? "禁用" : "启用"}
+              </a>{" "}
+              <Popconfirm
+                placement="left"
+                title={"确认是否删除用户：用户删除后将永不可恢复！"}
+                onConfirm={this.onDeleteUser.bind(this, record.userid)}
+                okText="Yes"
+                cancelText="No"
+              >
+                <a>删除</a>
+              </Popconfirm>
+            </div>
+          ) : (
+            ""
+          ),
       },
     ];
     var td = [];
@@ -362,14 +356,19 @@ class usermanager extends React.Component {
             <div className="user_group_title">
               <div className="user_group_font">用户分组</div>
               <div className="user_group_font" style={{ float: "right" }}>
-                <a
-                  className="user_group_title_link"
-                  onClick={this.onAddGroup.bind(this)}
-                >
-                  添加
-                </a>
+                {hasPermission("create_group") ? (
+                  <a
+                    className="user_group_title_link"
+                    onClick={this.onAddGroup.bind(this)}
+                  >
+                    添加
+                  </a>
+                ) : (
+                  ""
+                )}
                 {this.state.groupid != "root" &&
-                !this.state.selectNodeHaveSub ? (
+                !this.state.selectNodeHaveSub &&
+                hasPermission("del_group") ? (
                   <Popconfirm
                     placement="right"
                     title="删除后将不可恢复，请确认是否删除"
@@ -383,7 +382,9 @@ class usermanager extends React.Component {
                   ""
                 )}
 
-                {this.state.groupid != "root" && this.state.groupid != "" ? (
+                {this.state.groupid != "root" &&
+                this.state.groupid != "" &&
+                hasPermission("edit_group") ? (
                   <a
                     className="user_group_title_link"
                     onClick={this.onEidtGroup.bind(this)}
@@ -408,7 +409,8 @@ class usermanager extends React.Component {
                   <div className="user_group_font">用户列表</div>
                   <div className="user_group_font" style={{ float: "right" }}>
                     {this.state.groupid != "root" &&
-                    this.state.groupid != "" ? (
+                    this.state.groupid != "" &&
+                    hasPermission("add_user") ? (
                       <a
                         className="user_group_title_link"
                         onClick={this.onEditOrViewUser.bind(this, "")}

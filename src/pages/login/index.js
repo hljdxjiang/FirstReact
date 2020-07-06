@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import DocumentTitle from "react-document-title";
 import axios from "../../commons/ajax";
-import { hasPermission } from "../../commons";
+import { hasAnyMenus } from "../../commons";
 import { setCookieAndSession } from "../../commons/localstore";
 import "./index.css";
 
@@ -43,6 +43,9 @@ class Login extends React.Component {
             setCookieAndSession("_user_roles", storeuser.roleID);
             setCookieAndSession("_token", storeuser.token);
             this.props.login(storeuser);
+            if (!hasAnyMenus()) {
+              message.error("您没有任何菜单权限，无法登陆", 3);
+            }
             window.location.href = "/";
           } else {
           }
@@ -111,18 +114,12 @@ class Login extends React.Component {
                 />
               </Form.Item>
               <Form.Item>
-                <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-              </Form.Item>
-
-              <Form.Item>
                 <Button
                   type="primary"
                   className="login-form-button"
                   onClick={this.onLogin.bind(this)}
                 >
-                  Log in
+                  登录
                 </Button>
 
                 <Button
@@ -130,7 +127,7 @@ class Login extends React.Component {
                   className="reset-form-button"
                   onClick={this.onReset.bind(this)}
                 >
-                  Reset
+                  重置
                 </Button>
               </Form.Item>
             </Form>

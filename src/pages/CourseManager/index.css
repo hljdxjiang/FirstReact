@@ -12,7 +12,7 @@
 
 .course_card_div {
   float: left;
-  margin: 20px;
+  padding: 5px;
 }
 
 .sub_div {
@@ -42,7 +42,7 @@
 }
 
 .course_card_div>.ant-card>.ant-card-body {
-  height: 100px;
+  height: 110px;
 }
 
 .card_cours_price {

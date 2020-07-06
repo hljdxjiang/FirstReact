@@ -2,3 +2,9 @@
     margin: 5px;
     background: #FFF
 }
+
+.submit_row {
+    text-align: center;
+    display: block;
+    margin: 20px
+}

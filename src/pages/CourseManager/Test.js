@@ -3,7 +3,6 @@ import { Select } from "antd";
 
 const { Option } = Select;
 var prov;
-console.log("begin get in");
 const provinceData = ["Zhejiang", "Jiangsu"];
 const cityData = {
   Zhejiang: ["Hangzhou", "Ningbo", "Wenzhou"],
@@ -12,12 +11,11 @@ const cityData = {
 
 class Test extends React.Component {
   constructor(props) {
-    console.log("constru");
+
     super(props);
     this.state = { prov1: "", city1: "" };
   }
   componentWillMount() {
-    console.log("comm will cmount");
     prov = [
       {
         id: "010",
@@ -60,12 +58,7 @@ class Test extends React.Component {
       sub = s.sub;
     }
     return (
-      <>
-        <Select
-          defaultValue={""}
-          style={{ width: 120 }}
-          onChange={this.handleProvinceChange}
-        >
+        <Select style={{ width: 120 }} onChange={this.handleProvinceChange}>
           {prov.map((province, idx) => (
             <Option key={province.id} value={province.id}>
               {province.name}
@@ -83,7 +76,6 @@ class Test extends React.Component {
             </Option>
           ))}
         </Select>
-      </>
     );
   }
 }

@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { isLogin } from "../commons/localstore";
-import allMenus from "./allMenus";
 import AllComponents from "./components";
 import DocumentTitle from "react-document-title";
 import queryString from "query-string";
@@ -58,7 +57,7 @@ class Routers extends React.Component {
                   };
                   // 重新包装组件
                   const wrappedComponent = (
-                    <DocumentTitle title={r.title}>
+                    <DocumentTitle title={r.name}>
                       <Component {...merge} />
                     </DocumentTitle>
                   );

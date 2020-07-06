@@ -23,6 +23,7 @@ class UserManager extends React.Component {
       <Usermanager key="usermanager" />
     ) : (
       <Userinfo
+        key="usermanager"
         userid={this.props.selectuserid}
         groupid={this.props.selectgroupid}
       />

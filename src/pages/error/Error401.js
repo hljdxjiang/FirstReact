@@ -1,10 +1,12 @@
 import React from "react";
+import { clearCookieAndSession } from ".././../commons/localstore";
 import { Link } from "react-router-dom";
 import "./style.css";
 
 class Error401 extends React.Component {
   state = { stime: 9 };
   gologin = () => {
+    clearCookieAndSession();
     window.location.href = "/login";
   };
   componentDidMount() {

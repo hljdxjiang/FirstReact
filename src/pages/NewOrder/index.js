@@ -12,6 +12,7 @@ import {
 } from "antd";
 import selectdata from "../../commons/selectdata";
 import axios from "../../commons/ajax";
+import { getUserID } from "../../commons/localstore";
 import { getAllSubject, getAllCourse, getUserByVal } from "../pagecommjs";
 import "./index.css";
 
@@ -26,6 +27,7 @@ const defalut = {
   region: "",
   paytype: "",
   payment: "",
+  userid: getUserID(),
 };
 class NewOrder extends Component {
   formRef = React.createRef();
@@ -70,9 +72,6 @@ class NewOrder extends Component {
     }
     this.setState({ subject: rs, course: course });
   }
-  paydtOk = (e) => {
-    console.log(e);
-  };
   handleSubChange = (t, e) => {
     if (t === "sub1") {
       this.formRef.current.setFieldsValue({ courseid: "", sub2: "" });
@@ -103,11 +102,10 @@ class NewOrder extends Component {
         })
           .then((res) => {
             if (res && res.status) {
-              console.log(res);
               if (res.status === 200) {
                 if (res.data.code === 0) {
                   message.info("保存成功", "2");
-                  this.formRef.current.setFieldsValue(defalut);
+                  this.formRef.current.resetFields();
                 } else {
                   message.warning("获取数据失败，请于管理员联系", 3);
                 }
@@ -135,13 +133,14 @@ class NewOrder extends Component {
         console.log("err value", errorInfo);
       });
   };
-  onCancelClick = (e) => {};
+  onCancelClick = (e) => {
+    this.formRef.current.resetFields();
+  };
   render() {
     var sub = [];
     const s = Array.from(this.state.subject).find(
       (item) => item.subjectid === this.state.sub1
     );
-    console.log(s, this.state);
     if (s && s.sub) {
       sub = s.sub;
     }
@@ -362,7 +361,6 @@ class NewOrder extends Component {
                     <DatePicker
                       showTime
                       name="paydt"
-                      onOk={this.paydtOk.bind(this)}
                       format="YYYY-MM-DD HH:mm:ss"
                     />
                   </Form.Item>
@@ -404,16 +402,7 @@ class NewOrder extends Component {
                   </Form.Item>
                 </div>
                 <div className="course_edit_base_input">
-                  <Form.Item
-                    name="userpid"
-                    label="招生组长"
-                    rules={[
-                      {
-                        required: true,
-                        message: "请输入必输项!",
-                      },
-                    ]}
-                  >
+                  <Form.Item name="userpid" label="招生组长">
                     <Input
                       name="userpid"
                       onBlur={this.userOnBlur.bind(this)}
@@ -422,16 +411,7 @@ class NewOrder extends Component {
                   </Form.Item>
                 </div>
                 <div className="course_edit_base_input">
-                  <Form.Item
-                    name="hteacher"
-                    label="招生班主任"
-                    rules={[
-                      {
-                        required: true,
-                        message: "请输入必输项!",
-                      },
-                    ]}
-                  >
+                  <Form.Item name="hteacher" label="招生班主任">
                     <Input
                       name="hteacher"
                       onBlur={this.userOnBlur.bind(this)}
@@ -480,13 +460,7 @@ class NewOrder extends Component {
                   </Form.Item>
                 </div>
               </Row>
-              <Row
-                style={{
-                  "text-align": "center",
-                  display: "block",
-                  margin: "20px",
-                }}
-              >
+              <Row className="submit_row">
                 <Button
                   type="primary"
                   style={{
@@ -503,7 +477,7 @@ class NewOrder extends Component {
                   }}
                   onClick={this.onCancelClick.bind(this)}
                 >
-                  返回
+                  清空内容
                 </Button>
               </Row>
             </Form>

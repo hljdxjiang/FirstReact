@@ -17,10 +17,8 @@ export function getAllSubject() {
     .get("/api/subject/getsubjects")
     .then(async (response) => {
       if (response && response.status) {
-        console.log(response);
         if (response.status === 200) {
           if (response.data.code === 0) {
-            console.log();
             var robj = response.data.result;
             var rs = findSub("root", robj);
             return rs;
@@ -44,10 +42,8 @@ export function getAllCourse() {
     .get("/api/course/getall")
     .then(async (response) => {
       if (response && response.status) {
-        console.log(response);
         if (response.status === 200) {
           if (response.data.code === 0) {
-            console.log();
             var rs = response.data.result;
             return rs;
           } else {
@@ -70,7 +66,6 @@ export function getUserByVal(val) {
     .get("/api/user/getuserbyvalues?val=" + val)
     .then(async (res) => {
       if (res && res.status) {
-        console.log(res);
         if (res.status === 200) {
           if (res.data.code === 0) {
             var robj = res.data.result;

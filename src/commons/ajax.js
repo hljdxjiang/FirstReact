@@ -27,13 +27,16 @@ const axios = Axios.create({
 
 axios.interceptors.request.use(
   (config) => {
-    if (isLogin()) {
+    if (!!getToken()) {
       config.headers.Authorization = "Bearer " + getToken();
     }
     // 在发送请求之前做些什么(后期在这里加上token)
     // const token = store.state.token;
     // token && (config.headers.Authorization = token);
-    config.url = base_url + config.url;
+    if (process.env.NODE_ENV === "development") {
+      config.url = base_url + config.url;
+    }
+
     return config;
   },
   (error) => {
@@ -46,7 +49,6 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   // 请求成功
   (res) => {
-    console.log("response success", res);
     if (res.status === 200) {
       if (res.data.code !== "0" && res.data.msg) {
       }
@@ -57,7 +59,6 @@ axios.interceptors.response.use(
   },
   // 请求失败
   (err) => {
-    console.log("response err", err);
     const { response } = err;
     if (response) {
       if (response.status === 401) {

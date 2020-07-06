@@ -89,7 +89,6 @@ class userinfo extends React.Component {
   }
 
   async UserIDBlur(e) {
-    console.log(e);
     e.preventDefault();
     const {
       target: { value },
@@ -115,7 +114,6 @@ class userinfo extends React.Component {
       method: "get",
     })
       .then((response) => {
-        console.log("response", response);
         if (response && response.status) {
           if (response.status === 200) {
             if (response.data.code === 0) {
@@ -136,7 +134,6 @@ class userinfo extends React.Component {
         }
       })
       .catch((err) => {
-        console.log("err  ", err);
         message.warning(err);
       });
   }
@@ -144,7 +141,6 @@ class userinfo extends React.Component {
     return axios
       .get("/api/role/getroles")
       .then(async (response) => {
-        console.log("response", response);
         if (response && response.status) {
           if (response.status === 200) {
             if (response.data.code === 0) {
@@ -165,12 +161,10 @@ class userinfo extends React.Component {
         }
       })
       .catch((err) => {
-        console.log("err  ", err);
         message.warning(err);
       });
   }
   onDateOk = (t, e, v) => {
-    console.log(v, t, e);
     this.formRef.current.setFieldsValue({ [t]: moment(v, "YYYY-MM-DD") });
   };
   onInputChange = (e) => {
@@ -188,19 +182,17 @@ class userinfo extends React.Component {
     this.formRef.current
       .validateFields()
       .then((values) => {
-        console.log("Save Values is ", values);
         var obj = values;
         obj.groupid = this.state.groupid;
         obj.birthday = values.birthday.format("YYYY-MM-DD");
         obj.hiredate = values.hiredate.format("YYYY-MM-DD");
-        console.log(obj);
+
         axios({
           url: "/api/user/save",
           method: "post",
           data: JSON.stringify(obj),
         })
           .then((response) => {
-            console.log("response", response);
             if (response && response.status) {
               if (response.status === 200) {
                 if (response.data.code === 0) {
@@ -217,10 +209,8 @@ class userinfo extends React.Component {
             }
           })
           .catch((err) => {
-            console.log("err  ", err);
             message.warning(err);
           });
-        console.log(obj);
       })
       .catch((errorInfo) => {
         console.log("err value", errorInfo);
@@ -235,12 +225,9 @@ class userinfo extends React.Component {
     this.props.back_to_group(obj);
   };
 
-  handleSubChange = (e, v) => {
-    console.log(e, v);
-  };
+  handleSubChange = (e, v) => {};
 
   render() {
-    console.log("render ", this.state, this.state.userinfo);
     const style = {
       height: document.documentElement.clientHeight - 120 + "px",
     };

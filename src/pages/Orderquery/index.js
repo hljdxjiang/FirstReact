@@ -9,6 +9,7 @@ import {
   Select,
   Button,
   message,
+  Radio,
 } from "antd";
 import moment from "moment";
 import { telMask, exportExcel, hasPermission } from "../../commons";
@@ -122,7 +123,6 @@ class OrderQuery extends React.Component {
         ? Array.from(item.sub).find((sitem) => sitem.subjectid === v)
         : null
     );
-    console.log(sub);
     return v;
   };
 
@@ -191,7 +191,6 @@ class OrderQuery extends React.Component {
         })
           .then((res) => {
             if (res && res.status) {
-              console.log(res);
               if (res.status === 200) {
                 if (res.data.code === 0) {
                   if (res.data.result && res.data.result.length > 0) {
@@ -219,7 +218,6 @@ class OrderQuery extends React.Component {
     this.setState({ data: [], showexp: false });
   };
   render() {
-    console.log("render", this.state);
     var sub = [];
     if (this.state.sub1 !== "") {
       var s = this.state.subject.find(
@@ -236,11 +234,12 @@ class OrderQuery extends React.Component {
           name="advanced_search"
           className="ant-advanced-search-form"
           initialValues={{
-            bgdt: moment(),
+            bgdt: moment(new Date()).add(-3, "days"),
             enddt: moment(),
             sub1: "",
             subjectid: "",
             courseid: "",
+            scope: "1",
           }}
         >
           <Row style={{ margin: "5px" }}>
@@ -314,7 +313,6 @@ class OrderQuery extends React.Component {
                 rules={[{ required: false }]}
               >
                 <Select
-                  defaultValue=""
                   style={{ width: 120 }}
                   name="sub1"
                   onChange={this.onSbu1Change.bind(this)}
@@ -338,7 +336,6 @@ class OrderQuery extends React.Component {
                 rules={[{ required: false }]}
               >
                 <Select
-                  defaultValue=""
                   name="subjectid"
                   style={{ width: 120 }}
                   onChange={this.onSbu2Change.bind(this)}
@@ -361,7 +358,7 @@ class OrderQuery extends React.Component {
                 label="课程名称"
                 rules={[{ required: false }]}
               >
-                <Select defaultValue="" key="courseid" style={{ width: 120 }}>
+                <Select key="courseid" style={{ width: 120 }}>
                   return <Option value="">请选择</Option>;
                   {Array.from(this.state.course).map((item) => {
                     return item.subjectid === this.state.sub2 ? (
@@ -375,6 +372,31 @@ class OrderQuery extends React.Component {
                 </Select>
               </Form.Item>
             </div>
+            <div className="course_edit_base_input">
+              <Form.Item
+                name="scope"
+                label="查询范围"
+                rules={[{ required: false }]}
+              >
+                <Radio.Group name="scope">
+                  <Radio value="1">本人</Radio>
+                  <Radio
+                    value="2"
+                    disabled={
+                      !(
+                        hasPermission("order_query_groups") ||
+                        hasPermission("order_query_all")
+                      )
+                    }
+                  >
+                    本组
+                  </Radio>
+                  <Radio value="3" disabled={!hasPermission("order_query_all")}>
+                    全部
+                  </Radio>
+                </Radio.Group>
+              </Form.Item>
+            </div>
           </Row>
           <Row>
             <Col
@@ -384,19 +406,6 @@ class OrderQuery extends React.Component {
                 right: "50px",
               }}
             >
-              {this.state.showexp && hasPermission("order_export") ? (
-                <Button
-                  type="primary"
-                  style={{
-                    margin: "0 8px",
-                  }}
-                  onClick={this.export.bind(this)}
-                >
-                  导出
-                </Button>
-              ) : (
-                ""
-              )}
               <Button
                 type="primary"
                 style={{
@@ -415,6 +424,19 @@ class OrderQuery extends React.Component {
               >
                 清除
               </Button>
+              {this.state.showexp && hasPermission("order_export") ? (
+                <Button
+                  type="primary"
+                  style={{
+                    margin: "0 8px",
+                  }}
+                  onClick={this.export.bind(this)}
+                >
+                  导出
+                </Button>
+              ) : (
+                ""
+              )}
             </Col>
           </Row>
         </Form>

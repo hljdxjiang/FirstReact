@@ -1,19 +1,61 @@
 import XLSX from "xlsx";
 import { store } from "../store";
-const localStorage = window.localStorage;
-const sessionStorage = window.sessionStorage;
-const cookie = document.cookie;
+import { getUserID, clearCookieAndSession } from "./localstore";
+export const adminuser = "admin";
 
+export function gologin() {
+  clearCookieAndSession();
+  window.location.href = "/login";
+}
 export function hasPermission(key) {
-  console.log(key);
+  if (getUserID() === adminuser) {
+    return true;
+  }
   var b = false;
   var s = store.getState();
   if (s && s.userinfo) {
     var roles = s.userinfo.roles;
-    if (roles) {
+    if (roles && roles.length > 0) {
       var arr = Array.from(JSON.parse(roles)).find(
         (item) => item.funcid === key && item.ftype === 1
       );
+      if (arr) {
+        b = true;
+      }
+    }
+  }
+  return b;
+}
+export function hasMenu(key) {
+  if (getUserID() === adminuser) {
+    return true;
+  }
+  var b = false;
+  var s = store.getState();
+  if (s && s.userinfo) {
+    var roles = s.userinfo.roles;
+    if (roles && roles.length > 0) {
+      var arr = Array.from(JSON.parse(roles)).find(
+        (item) => item.funcid === key && item.ftype === 0
+      );
+      if (arr) {
+        b = true;
+      }
+    }
+  }
+  return b;
+}
+
+export function hasAnyMenus() {
+  if (getUserID() === adminuser) {
+    return true;
+  }
+  var b = false;
+  var s = store.getState();
+  if (s && s.userinfo) {
+    var roles = s.userinfo.roles;
+    if (roles && roles.length > 0) {
+      var arr = Array.from(JSON.parse(roles)).find((item) => item.ftype === 0);
       if (arr) {
         b = true;
       }
@@ -102,7 +144,6 @@ export function exportExcel(headers, data, fileName) {
 
 export function ismobile(mobile) {
   var reg = /^[1][3,4,5,7,8,9][0-9]{9}$/;
-  console.log("mobile is ", mobile);
   if (!reg.test(mobile)) {
     return false;
   }

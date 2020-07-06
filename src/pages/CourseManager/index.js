@@ -11,6 +11,7 @@ import {
   StopOutlined,
 } from "@ant-design/icons";
 import selectdt from "../../commons/selectdata";
+import { hasPermission } from "../../commons/";
 import axios from "../../commons/ajax";
 
 const { Meta } = Card;
@@ -55,6 +56,17 @@ class CourseManager extends React.Component {
     } else {
       url += "?courseid=" + v;
     }
+    if (t === "add") {
+      if (!hasPermission("add_course")) {
+        message.warning("您没有创建课程的权限", 3);
+        return;
+      }
+    } else {
+      if (!hasPermission("edit_course")) {
+        message.warning("您没有修改课程的权限", 3);
+        return;
+      }
+    }
     if (t === "edit" || t === "add") {
       this.props.history.push(url);
     } else if (t === "disabled" || t === "enable") {
@@ -94,7 +106,6 @@ class CourseManager extends React.Component {
         }
       })
       .catch((err) => {
-        console.log("err  ", err);
         message.warning(err);
       });
   };
@@ -123,14 +134,12 @@ class CourseManager extends React.Component {
         }
       })
       .catch((err) => {
-        console.log("err  ", err);
         message.warning(err);
       });
   };
   getShowCourse = (citem) => {
     var b = false;
     if (this.state.sub2 !== "") {
-      console.log("sub2 is not null", citem.subjectid, this.state.sub2);
       b = citem.subjectid === this.state.sub2;
     } else if (this.state.sub1 !== "") {
       var rs = this.state.sub.filter(
@@ -146,9 +155,6 @@ class CourseManager extends React.Component {
       b = citem.ctype === this.state.course_type;
     }
     return b;
-  };
-  getCourse = () => {
-    console.log("getCourse", this.state);
   };
   onCourseTypeChange = (e) => {
     this.setState({
@@ -166,29 +172,19 @@ class CourseManager extends React.Component {
           : this.state.subject.find((date) => date.subjectid === e.target.value)
               .sub,
     });
-    this.getCourse();
   };
   onSub2Change = (e) => {
-    console.log("onSub2Change", e.target.value);
     this.setState({
       sub2: e.target.value,
     });
   };
-  onAddCourseClick = (e) => {
-    console.log(e);
-  };
   render() {
-    console.log(this.state);
     return (
       <div className="title_form">
         <div>
           <div className="sub_div">
             <label className="sub1_lable">学科大类</label>
-            <Radio.Group
-              size="small"
-              defaultValue=""
-              onChange={this.onSub1Change.bind(this)}
-            >
+            <Radio.Group size="small" onChange={this.onSub1Change.bind(this)}>
               <Radio.Button value="" className="sub1_redio">
                 全部
               </Radio.Button>
@@ -203,11 +199,7 @@ class CourseManager extends React.Component {
           </div>
           <div className="sub_div">
             <label className="sub1_lable">学科小类</label>
-            <Radio.Group
-              size="small"
-              defaultValue=""
-              onChange={this.onSub2Change.bind(this)}
-            >
+            <Radio.Group size="small" onChange={this.onSub2Change.bind(this)}>
               <Radio.Button value="" className="sub1_redio">
                 全部
               </Radio.Button>
@@ -224,7 +216,6 @@ class CourseManager extends React.Component {
             <label className="sub1_lable">授课方式</label>
             <Radio.Group
               size="small"
-              defaultValue=""
               onChange={this.onCourseTypeChange.bind(this)}
             >
               <Radio.Button value="" className="sub1_redio">
@@ -242,14 +233,14 @@ class CourseManager extends React.Component {
         </div>
         <div className="course_main">
           <div className="site-card-border-less-wrapper">
-            <div className="course_card_div">
+            <div className="card_div">
               <Tooltip color={"gold"} title="添加课程">
                 <Card
                   bordered={false}
                   hoverable={true}
                   style={{
-                    width: 300,
-                    height: 330,
+                    width: "100%",
+                    height: 360,
                     "background-color": "azure",
                   }}
                   onClick={this.onActionClick.bind(this, "add", "")}
@@ -345,12 +336,17 @@ class CourseManager extends React.Component {
                     <Card
                       style={
                         item.valid
-                          ? { width: 300, "background-color": "azure" }
-                          : { width: 300, background: "#ddd" }
+                          ? {
+                              width: "100%",
+                              height: 360,
+                              "background-color": "azure",
+                            }
+                          : { width: "100%", height: 360, background: "#ddd" }
                       }
                       cover={
                         <img
                           alt="example"
+                          style={{ height: 200 }}
                           src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                         />
                       }

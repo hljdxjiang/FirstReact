@@ -35,7 +35,6 @@ class Subjects extends React.Component {
 
   async getAllSubject() {
     let rs = await getAllSubject();
-    console.log(rs);
     this.setState({
       sub1show: false,
       sub2show: false,
@@ -45,7 +44,6 @@ class Subjects extends React.Component {
     });
   }
   onStatusChange = (v, e) => {
-    console.log(v, e);
     var obj = {};
     obj.subjectid = v;
     obj.substatus = e ? "0" : "1";
@@ -60,7 +58,6 @@ class Subjects extends React.Component {
       data: JSON.stringify(v),
     })
       .then((response) => {
-        console.log("response", response);
         if (response && response.status) {
           if (response.status === 200) {
             if (response.data.code === 0) {
@@ -78,7 +75,6 @@ class Subjects extends React.Component {
         }
       })
       .catch((err) => {
-        console.log("err  ", err);
         message.warning(err);
       });
   };
@@ -132,7 +128,6 @@ class Subjects extends React.Component {
     });
   };
   onActionClick = (v, t, o) => {
-    console.log(v, t, o);
     //v value
     //t type edit “编辑一级菜单” add "添加一个" delete删除 ok 启用 stop 停用
     //o  object
@@ -172,7 +167,6 @@ class Subjects extends React.Component {
         "/api/subject/change?subjectid=" + subjectid + "&substatus=" + substatus
       )
       .then((response) => {
-        console.log("response", response);
         if (response && response.status) {
           if (response.status === 200) {
             if (response.data.code === 0) {
@@ -219,7 +213,6 @@ class Subjects extends React.Component {
     }
   };
   deletecontent = (v, t) => {
-    console.log(v, t);
     var obj = {};
     obj.subjectid = v;
     axios({
@@ -228,7 +221,6 @@ class Subjects extends React.Component {
       data: JSON.stringify(obj),
     })
       .then((response) => {
-        console.log("response", response);
         if (response && response.status) {
           if (response.status === 200) {
             if (response.data.code === 0) {
@@ -251,8 +243,6 @@ class Subjects extends React.Component {
       });
   };
   sub2handleOk = (e) => {
-    console.log(e);
-    console.log(this.state.selectedsub2);
     var obj = this.state.selectedsub2;
     if (obj.subjectpid === "" || obj.subjectpid === undefined) {
       message.warning("科目信息异常，请刷新页面后重试");
@@ -264,7 +254,6 @@ class Subjects extends React.Component {
     this.setState({ sub2show: false, selectedsub2: {} });
   };
   render() {
-    console.log(this.state);
     return (
       <div className="title_form">
         <div className="site-card-border-less-wrapper">
@@ -273,7 +262,11 @@ class Subjects extends React.Component {
               <Card
                 bordered={false}
                 hoverable={true}
-                style={{ width: 350, height: 336, "background-color": "azure" }}
+                style={{
+                  width: "100%",
+                  height: 336,
+                  "background-color": "azure",
+                }}
                 onClick={this.onActionClick.bind(this, "", "add")}
               >
                 <div className="add_card">
@@ -311,7 +304,7 @@ class Subjects extends React.Component {
                             </Popconfirm>
                           </Tooltip>
                         ) : (
-                          ""
+                          <div></div>
                         )}
                         {hasPermission("edit_subject") ? (
                           <Tooltip color={"gold"} title="编辑科目">
@@ -330,11 +323,11 @@ class Subjects extends React.Component {
                             </a>
                           </Tooltip>
                         ) : (
-                          ""
+                          <div></div>
                         )}
                       </div>
                     ) : (
-                      ""
+                      <div></div>
                     )}
                   </div>
                   <div className="title_desc">{item.subjectdesc}</div>
@@ -392,8 +385,8 @@ class Subjects extends React.Component {
                     hoverable={true}
                     style={
                       item.substatus === "0"
-                        ? { width: 350, "background-color": "azure" }
-                        : { width: 350, background: "#ddd" }
+                        ? { width: "100%", "background-color": "azure" }
+                        : { width: "100%", background: "#ddd" }
                     }
                     title={div}
                     actions={
@@ -404,7 +397,9 @@ class Subjects extends React.Component {
                       Array.from(item.sub).map((sitem, key) => {
                         return (
                           <div style={{ display: "flow-root" }} key={key}>
-                            <p style={{ float: "left" }}>{sitem.subjectname}</p>
+                            <p className="antd_card_body_content">
+                              {sitem.subjectname}
+                            </p>
                             {item.substatus === "0" ? (
                               <div style={{ float: "right" }}>
                                 {hasPermission("delete_subject") ? (
@@ -427,36 +422,35 @@ class Subjects extends React.Component {
                                     </a>
                                   </Popconfirm>
                                 ) : (
-                                  ""
+                                  <div></div>
                                 )}
-                                ,
-                                {hasPermission("delete_subject")
-                                  ? ((
-                                      <a
-                                        subjectid={sitem.subjectid}
-                                        onClick={this.onContentClick.bind(
-                                          this,
-                                          item.subjectid,
-                                          sitem.subjectid,
-                                          "edit"
-                                        )}
-                                      >
-                                        <EditOutlined className="content_icon" />
-                                      </a>
-                                    ),
-                                    (
-                                      <Switch
-                                        subjectid={sitem.subjectid}
-                                        defaultChecked={sitem.substatus === "0"}
-                                        onChange={this.onStatusChange.bind(
-                                          this,
-                                          sitem.subjectid
-                                        )}
-                                        size="small"
-                                        className="content_switch"
-                                      ></Switch>
-                                    ))
-                                  : ""}
+                                {hasPermission("delete_subject") ? (
+                                  <div style={{ float: "right" }}>
+                                    <a
+                                      subjectid={sitem.subjectid}
+                                      onClick={this.onContentClick.bind(
+                                        this,
+                                        item.subjectid,
+                                        sitem.subjectid,
+                                        "edit"
+                                      )}
+                                    >
+                                      <EditOutlined className="content_icon" />
+                                    </a>
+                                    <Switch
+                                      subjectid={sitem.subjectid}
+                                      defaultChecked={sitem.substatus === "0"}
+                                      onChange={this.onStatusChange.bind(
+                                        this,
+                                        sitem.subjectid
+                                      )}
+                                      size="small"
+                                      className="content_switch"
+                                    ></Switch>
+                                  </div>
+                                ) : (
+                                  <div></div>
+                                )}
                               </div>
                             ) : (
                               ""

@@ -58,8 +58,6 @@ class RoleManager extends React.Component {
     })
       .then((response) => {
         if (response.status === 200) {
-          console.log(response.data);
-
           if (response.data.code === 0) {
             var obj = JSON.parse(response.data.result);
             this.setState({
@@ -85,7 +83,6 @@ class RoleManager extends React.Component {
       method: "get",
     })
       .then((response) => {
-        console.log("response", response);
         if (response && response.status) {
           if (response.status === 200) {
             if (response.data.code === 0) {
@@ -159,14 +156,10 @@ class RoleManager extends React.Component {
   };
 
   saveAuthDetail = () => {
-    console.log("begin save");
     var obj = {};
     obj.roleid = this.state.roleid;
     obj.menus = this.state.menuselected;
     obj.auths = this.state.authselected;
-
-    console.log(obj);
-
     axios({
       url: "/api/role/saveauth",
       method: "post",
@@ -174,8 +167,6 @@ class RoleManager extends React.Component {
     })
       .then((response) => {
         if (response.status === 200) {
-          console.log(response.data);
-
           if (response.data.code === 0) {
             message.success("保存成功", 3);
           } else {

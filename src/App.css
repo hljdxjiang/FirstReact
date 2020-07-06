@@ -57,11 +57,27 @@ root {
   .course_edit_base_input {
     width: 98%;
   }
+
+  .card_div {
+    width: 100%;
+  }
+
+  .course_card_div {
+    width: 100%;
+  }
 }
 
 @media screen and (min-width: 576px) {
   .course_edit_base_input {
     width: 48%;
+  }
+
+  .card_div {
+    width: 100%;
+  }
+
+  .course_card_div {
+    width: 100%;
   }
 }
 
@@ -69,17 +85,41 @@ root {
   .course_edit_base_input {
     width: 48%;
   }
+
+  .card_div {
+    width: 50%;
+  }
+
+  .course_card_div {
+    width: 50%;
+  }
 }
 
 @media screen and (min-width: 1150px) {
   .course_edit_base_input {
     width: 32%;
   }
+
+  .card_div {
+    width: 33.3%;
+  }
+
+  .course_card_div {
+    width: 33.3%;
+  }
 }
 
 @media screen and (min-width: 1366px) {
   .course_edit_base_input {
     width: 24%;
+  }
+
+  .card_div {
+    width: 25%;
+  }
+
+  .course_card_div {
+    width: 25%;
   }
 }
 

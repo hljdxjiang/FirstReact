@@ -10,7 +10,7 @@ export default class Dashboard extends React.Component {
   render() {
     return (
       <div className="main_content_div">
-        <Info />
+        {/* <Info />
         <Row>
           <Col md={12}>
             <div style={{ margin: "5px" }}>
@@ -30,7 +30,7 @@ export default class Dashboard extends React.Component {
           <Col md={12}>
             <Ordertable etype="2" />
           </Col>
-        </Row>
+        </Row> */}
       </div>
     );
   }

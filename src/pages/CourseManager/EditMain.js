@@ -10,7 +10,6 @@ class EditMain extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div style={{ height: "100%" }}>
         <div className="edit_title">

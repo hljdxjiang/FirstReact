@@ -2,6 +2,8 @@
   font-size: x-small;
   font-weight: 400;
   overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .title_icon {
@@ -37,11 +39,12 @@
 
 .card_div {
   float: left;
-  margin: 20px;
+  padding: 5px;
 }
 
 .ant-card-body {
   height: 200px;
+  overflow: scroll;
 }
 
 .ant-card-actions {
@@ -76,7 +79,17 @@
   margin-bottom: 5px;
 }
 
+.antd_card_body_content {
+  float: left;
+  width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .ant-card-meta-description {
   overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   height: 25px;
 }
