@@ -233,7 +233,7 @@ class CourseManager extends React.Component {
         </div>
         <div className="course_main">
           <div className="site-card-border-less-wrapper">
-            <div className="card_div">
+            <div className="card_add_div">
               <Tooltip color={"gold"} title="添加课程">
                 <Card
                   bordered={false}

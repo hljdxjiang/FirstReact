@@ -257,14 +257,14 @@ class Subjects extends React.Component {
     return (
       <div className="title_form">
         <div className="site-card-border-less-wrapper">
-          <div className="card_div">
+          <div className="card_add_div">
             <Tooltip color={"gold"} title="添加科目">
               <Card
                 bordered={false}
                 hoverable={true}
                 style={{
                   width: "100%",
-                  height: 336,
+                  height: 333,
                   "background-color": "azure",
                 }}
                 onClick={this.onActionClick.bind(this, "", "add")}

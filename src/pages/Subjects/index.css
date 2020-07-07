@@ -42,9 +42,9 @@
   padding: 5px;
 }
 
-.ant-card-body {
-  height: 200px;
-  overflow: scroll;
+.card_add_div {
+  float: left;
+  padding: 5px;
 }
 
 .ant-card-actions {

@@ -53,12 +53,53 @@ root {
   float: left;
 }
 
+.course_card_div>.ant-card>.ant-card-body {
+  height: 110px;
+  overflow: hidden;
+  white-space: break-spaces;
+  padding: 15px;
+}
+
+.ant-card-body::after,
+.ant-card-body::before {
+  display: none;
+}
+
+.ant-card-meta::after,
+.ant-card-meta::before {
+  display: none;
+}
+
+.card_add_div>.ant-card>.ant-card-body {
+  height: 200px;
+  overflow: hidden;
+}
+
+.ant-card-body::before {
+  display: none;
+}
+
+.card_div>.ant-card>.ant-card-body {
+  height: 200px;
+  overflow: auto;
+  overflow-x: hidden;
+  padding: 5px 10px 5px 10px;
+  scrollbar-color: transparent transparent;
+  scrollbar-track-color: transparent;
+  -ms-scrollbar-track-color: transparent;
+  scrollbar-width: thin;
+}
+
 @media screen and (min-width: 300px) {
   .course_edit_base_input {
     width: 98%;
   }
 
   .card_div {
+    width: 100%;
+  }
+
+  .card_add_div {
     width: 100%;
   }
 
@@ -73,6 +114,10 @@ root {
   }
 
   .card_div {
+    width: 100%;
+  }
+
+  .card_add_div {
     width: 100%;
   }
 
@@ -93,6 +138,10 @@ root {
   .course_card_div {
     width: 50%;
   }
+
+  .card_add_div {
+    width: 50%;
+  }
 }
 
 @media screen and (min-width: 1150px) {
@@ -101,6 +150,10 @@ root {
   }
 
   .card_div {
+    width: 33.3%;
+  }
+
+  .card_add_div {
     width: 33.3%;
   }
 
@@ -118,6 +171,10 @@ root {
     width: 25%;
   }
 
+  .card_add_div {
+    width: 25%;
+  }
+
   .course_card_div {
     width: 25%;
   }
@@ -128,10 +185,18 @@ root {
   min-height: inherit;
   background-color: #fff;
   overflow: scroll;
+  scrollbar-color: transparent transparent;
+  scrollbar-track-color: transparent;
+  -ms-scrollbar-track-color: transparent;
+  scrollbar-width: thin;
 }
 
 .input_table_row_style {
   text-align: center;
   display: block;
   margin: 20px;
+}
+
+::-webkit-scrollbar {
+  width: thin;
 }
