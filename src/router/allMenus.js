@@ -60,6 +60,23 @@ export default {
         },
       ],
     },
+    {
+      title: "销售机会",
+      icon: "scan",
+      key: "salesleads",
+      children: [
+        {
+          key: "/index/mysales",
+          title: "销售机会",
+          component: "MySales",
+        },
+        {
+          key: "/index/mysales",
+          title: "课程管理",
+          component: "CourseManager",
+        },
+      ],
+    },
   ],
   others: [], // 非菜单相关路由
 };

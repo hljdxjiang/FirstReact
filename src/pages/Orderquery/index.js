@@ -12,7 +12,7 @@ import {
   Radio,
 } from "antd";
 import moment from "moment";
-import { telMask, exportExcel, hasPermission } from "../../commons";
+import { telMask, hasPermission } from "../../commons";
 import { getAllSubject, getAllCourse, getUserByVal } from "../pagecommjs";
 import { transPayType, transPayMent } from "../../commons/transdata";
 import {
@@ -165,11 +165,11 @@ class OrderQuery extends React.Component {
     });
   }
   export = () => {
-    exportExcel(
-      columns,
-      this.state.data,
-      "订单导出-" + moment().format("YYYYMMDDHH24MISS") + ".xlsx"
-    );
+    // exportExcel(
+    //   columns,
+    //   this.state.data,
+    //   "订单导出-" + moment().format("YYYYMMDDHH24MISS") + ".xlsx"
+    // );
   };
 
   onSearch = () => {
